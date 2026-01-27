@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password    String
+  role        Role
+  createdAt  DateTime     @default(now())
+
+  // Relations
+  courses     Course[]     @relation("StaffCourses")
+  enrollments Enrollment[]
+  attendance  Attendance[]
+  results     Result[]
+
+  passwordResetTokens PasswordResetToken[] // ✅ 反向关系
+}
+
+model Course {
+  id         Int          @id @default(autoincrement())
+  courseName String
+  courseCode String       @unique
+  staffId    Int
+  createdAt DateTime     @default(now())
+
+  // Relations
+  staff       User         @relation("StaffCourses", fields: [staffId], references: [id])
+  enrollments Enrollment[]
+  attendance  Attendance[]
+  results Result[]
+
+}
+
+model Result {
+  id          Int      @id @default(autoincrement())
+  studentId   Int
+  courseId    Int   // 课程名称（学生输入）
+  grade       String   // A, B+, C
+  gradePoint  Float    // 4.0, 3.5
+  credit      Int
+  semester    String   // Y1S1, Y2S2
+  createdAt   DateTime @default(now())
+
+  // Relations
+  student User @relation(fields: [studentId], references: [id])
+  course  Course @relation(fields: [courseId], references: [id])
+
+
+  @@unique([studentId, courseId, semester])
+}
+
+model Enrollment {
+  id        Int      @id @default(autoincrement())
+  studentId Int
+  courseId  Int
+  enrolledAt DateTime @default(now())
+
+  // Relations
+  student   User   @relation(fields: [studentId], references: [id])
+  course    Course @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId])
+}
+
+model Attendance {
+  id             Int      @id @default(autoincrement())
+  studentId      Int
+  courseId       Int
+  attendanceDate DateTime
+  status         AttendanceStatus @default(PRESENT)
+  createdAt      DateTime @default(now())
+
+  // Relations
+  student User   @relation(fields: [studentId], references: [id])
+  course  Course @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId, attendanceDate])
+}
+
+enum Role {
+  student
+  staff
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+}
+
+model PasswordResetToken {
+  id        Int   @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
