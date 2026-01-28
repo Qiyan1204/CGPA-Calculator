@@ -10,6 +10,8 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
   const router = useRouter();
 
   async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
@@ -152,13 +154,21 @@ export default function RegisterPage() {
                   />
                   <label htmlFor="terms" className="text-gray-600 text-sm">
                     I agree to the{" "}
-                    <Link href="/terms" className="text-cyan-500 hover:text-cyan-600">
+                    <button
+                      type="button"
+                      onClick={() => setShowTerms(true)}
+                      className="text-cyan-500 hover:text-cyan-600 underline"
+                    >
                       Terms of Service
-                    </Link>
+                    </button>
                     {" "}and{" "}
-                    <Link href="/privacy" className="text-cyan-500 hover:text-cyan-600">
+                    <button
+                      type="button"
+                      onClick={() => setShowPrivacy(true)}
+                      className="text-cyan-500 hover:text-cyan-600 underline"
+                    >
                       Privacy Policy
-                    </Link>
+                    </button>
                   </label>
                 </div>
 
@@ -186,6 +196,143 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
+{/* Terms of Service Modal */}
+      {showTerms && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Terms of Service</h2>
+              <button
+                onClick={() => setShowTerms(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              <p className="text-gray-700">
+                Welcome to CGPA Calculator. By using our service, you agree to these terms.
+              </p>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">1. Acceptance of Terms</h3>
+                <p className="text-gray-700">
+                  By accessing and using CGPA Calculator, you accept and agree to be bound by the terms
+                  and provision of this agreement.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">2. Use of Service</h3>
+                <p className="text-gray-700">
+                  You agree to use this service for lawful purposes only. You are responsible for
+                  maintaining the confidentiality of your account information.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">3. User Responsibilities</h3>
+                <p className="text-gray-700">
+                  You are responsible for the accuracy of the information you provide and for keeping
+                  your account credentials secure.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">4. Limitation of Liability</h3>
+                <p className="text-gray-700">
+                  CGPA Calculator is provided "as is" without any warranties. We are not liable for
+                  any damages arising from the use of this service.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">5. Changes to Terms</h3>
+                <p className="text-gray-700">
+                  We reserve the right to modify these terms at any time. Continued use of the service
+                  constitutes acceptance of modified terms.
+                </p>
+              </div>
+            </div>
+
+            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-6">
+              <button
+                onClick={() => setShowTerms(false)}
+                className="w-full py-2 bg-cyan-500 text-white rounded font-medium hover:bg-cyan-600 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Privacy Policy Modal */}
+      {showPrivacy && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Privacy Policy</h2>
+              <button
+                onClick={() => setShowPrivacy(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              <p className="text-gray-700">
+                This Privacy Policy explains how CGPA Calculator collects, uses, and protects your
+                personal information.
+              </p>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">1. Information We Collect</h3>
+                <p className="text-gray-700">
+                  We collect basic personal information such as your name, email address, and academic
+                  data for CGPA calculation purposes.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">2. How We Use Your Information</h3>
+                <p className="text-gray-700">
+                  Your data is used only to provide and improve our services. We do not sell or share
+                  your information with third parties.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">3. Data Security</h3>
+                <p className="text-gray-700">
+                  We take reasonable measures to protect your personal information from unauthorized
+                  access, disclosure, or destruction.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">4. Changes to This Policy</h3>
+                <p className="text-gray-700">
+                  This Privacy Policy may be updated from time to time. We will notify you of any
+                  significant changes.
+                </p>
+              </div>
+            </div>
+
+            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-6">
+              <button
+                onClick={() => setShowPrivacy(false)}
+                className="w-full py-2 bg-cyan-500 text-white rounded font-medium hover:bg-cyan-600 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
