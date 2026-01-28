@@ -14,9 +14,30 @@ export default function RegisterPage() {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const router = useRouter();
 
+  function validateEmail(email: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  function validatePassword(password: string) {
+    return password.length >= 8;
+  }
+
   async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    
+    // Validate email format
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address with @");
+      return;
+    }
+
+    // Validate password length
+    if (!validatePassword(password)) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
 
     // Validate passwords match
     if (password !== confirmPassword) {
@@ -42,9 +63,20 @@ export default function RegisterPage() {
     router.push("/login");
   }
 
+  // Password strength indicator
+  function getPasswordStrength(password: string) {
+    if (password.length === 0) return { text: "", color: "" };
+    if (password.length < 8) return { text: "Too short", color: "text-red-600" };
+    if (password.length < 10) return { text: "Weak", color: "text-orange-600" };
+    if (password.length < 12) return { text: "Good", color: "text-yellow-600" };
+    return { text: "Strong", color: "text-green-600" };
+  }
+
+  const passwordStrength = getPasswordStrength(password);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Simple Header */}
+      {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
@@ -113,6 +145,11 @@ export default function RegisterPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                   />
+                  {email && !validateEmail(email) && (
+                    <p className="text-red-600 text-xs mt-1">
+                      Please enter a valid email with @
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -122,12 +159,34 @@ export default function RegisterPage() {
                   <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Create a password"
+                    placeholder="At least 8 characters"
                     type="password"
                     required
-                    minLength={6}
+                    minLength={8}
                     className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                   />
+                  {password && (
+                    <div className="mt-2">
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-1 bg-gray-200 rounded">
+                          <div 
+                            className={`h-full rounded transition-all ${
+                              password.length < 8 ? 'bg-red-500 w-1/4' :
+                              password.length < 10 ? 'bg-orange-500 w-1/2' :
+                              password.length < 12 ? 'bg-yellow-500 w-3/4' :
+                              'bg-green-500 w-full'
+                            }`}
+                          />
+                        </div>
+                        <span className={`text-xs font-medium ${passwordStrength.color}`}>
+                          {passwordStrength.text}
+                        </span>
+                      </div>
+                      <p className="text-gray-500 text-xs mt-1">
+                        Must be at least 8 characters
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -137,12 +196,22 @@ export default function RegisterPage() {
                   <input
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Confirm your password"
+                    placeholder="Re-enter your password"
                     type="password"
                     required
-                    minLength={6}
+                    minLength={8}
                     className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                   />
+                  {confirmPassword && password !== confirmPassword && (
+                    <p className="text-red-600 text-xs mt-1">
+                      Passwords do not match
+                    </p>
+                  )}
+                  {confirmPassword && password === confirmPassword && (
+                    <p className="text-green-600 text-xs mt-1">
+                      ✓ Passwords match
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex items-start pt-2">
@@ -196,6 +265,7 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
+      
 {/* Terms of Service Modal */}
       {showTerms && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
