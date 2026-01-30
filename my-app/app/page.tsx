@@ -221,47 +221,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works */}
-        <section className="max-w-6xl mx-auto px-4 py-20">
-          <div className="bg-cyan-50 rounded-xl p-10 border border-cyan-200">
-            <h2 className="text-4xl font-bold text-gray-900 text-center mb-12">
-              How It Works
-            </h2>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-2xl shadow-md">
-                  1
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Sign Up</h3>
-                <p className="text-gray-600">
-                  Create your free account in just a few seconds.
-                </p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-2xl shadow-md">
-                  2
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Add Courses</h3>
-                <p className="text-gray-600">
-                  Enter your courses, credits, and grades easily.
-                </p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-2xl shadow-md">
-                  3
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">View Results</h3>
-                <p className="text-gray-600">
-                  Get your CGPA calculated instantly with detailed breakdown.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* CTA Section */}
         <section className="max-w-4xl mx-auto px-4 py-20">
           <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl p-12 text-center text-white shadow-lg">
