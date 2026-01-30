@@ -15,10 +15,12 @@ const geistMono = Geist_Mono({
 
 const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://cgpacalc.quadrawebs.com");
 
 export const metadata: Metadata = {
-  metadataBase: baseUrl ? new URL(baseUrl) : undefined,
+  metadataBase: new URL(baseUrl),
   
   title: "CGPA Calculator",
   description:
