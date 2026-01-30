@@ -13,10 +13,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+
 export const metadata: Metadata = {
+  metadataBase: baseUrl ? new URL(baseUrl) : undefined,
+  
   title: "CGPA Calculator",
   description:
     "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
+  
   openGraph: {
     title: "CGPA Calculator",
     description: "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
@@ -24,6 +31,7 @@ export const metadata: Metadata = {
     images: ["/og.png"],
     type: "website",
   },
+  
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.ico",
