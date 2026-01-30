@@ -14,10 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ||
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "https://cgpacalc.quadrawebs.com");
+  process.env.NEXT_PUBLIC_BASE_URL || "https://cgpacalc.quadrawebs.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
