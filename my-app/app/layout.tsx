@@ -14,42 +14,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cgpa.quadrawebs.com"),
-
-  title: {
-    default: "CGPA Calculator",
-    template: "%s | CGPA Calculator",
-  },
-
+  title: "CGPA Calculator",
   description:
     "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
-
   openGraph: {
     title: "CGPA Calculator",
-    description:
-      "Calculate CGPA, set target CGPA, and plan your academic journey.",
-    url: "https://cgpa.quadrawebs.com",
+    description: "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
     siteName: "CGPA Calculator",
-    images: [
-      {
-        url: "https://cgpa.quadrawebs.com/og.png",
-        width: 1200,
-        height: 630,
-        alt: "CGPA Calculator – Plan Your Academic Journey",
-      },
-    ],
-    locale: "en_US",
+    images: ["/og.png"],
     type: "website",
   },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "CGPA Calculator",
-    description:
-      "Calculate CGPA, set target CGPA, and plan your academic journey.",
-    images: ["https://cgpa.quadrawebs.com/og.png"],
-  },
-
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.ico",
