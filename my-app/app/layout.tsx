@@ -14,14 +14,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CGPA Calculator",
-  description: "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
+  metadataBase: new URL("https://cgpa.quadrawebs.com"), // 👈 换成你的正式域名
 
-   openGraph: {
+  title: {
+    default: "CGPA Calculator",
+    template: "%s | CGPA Calculator",
+  },
+
+  description:
+    "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
+
+  applicationName: "CGPA Calculator",
+
+  openGraph: {
+    title: "CGPA Calculator",
+    description:
+      "Calculate CGPA, set target CGPA, and plan your academic journey easily.",
+    url: "https://cgpa.quadrawebs.com",
+    siteName: "CGPA Calculator",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "CGPA Calculator – Plan Your Academic Journey",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
     title: "CGPA Calculator",
     description:
       "Calculate CGPA, set target CGPA, and plan your academic journey.",
     images: ["/og.png"],
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
