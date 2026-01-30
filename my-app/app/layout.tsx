@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cgpa.quadrawebs.com"), // 👈 换成你的正式域名
+  metadataBase: new URL("https://cgpa.quadrawebs.com"),
 
   title: {
     default: "CGPA Calculator",
@@ -24,12 +24,10 @@ export const metadata: Metadata = {
   description:
     "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
 
-  applicationName: "CGPA Calculator",
-
   openGraph: {
     title: "CGPA Calculator",
     description:
-      "Calculate CGPA, set target CGPA, and plan your academic journey easily.",
+      "Calculate CGPA, set target CGPA, and plan your academic journey.",
     url: "https://cgpa.quadrawebs.com",
     siteName: "CGPA Calculator",
     images: [
@@ -54,13 +52,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
     apple: "/favicon.ico",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
