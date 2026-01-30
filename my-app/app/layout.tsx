@@ -18,7 +18,7 @@ const baseUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  
+
   title: "CGPA Calculator",
   description:
     "CGPA Calculator helps students calculate current CGPA, set target CGPA, and plan future semesters easily and accurately.",
