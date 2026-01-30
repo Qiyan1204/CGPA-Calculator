@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "CGPA Calculator",
     images: [
       {
-        url: "/og.png",
+        url: "https://cgpa.quadrawebs.com/og.png",
         width: 1200,
         height: 630,
         alt: "CGPA Calculator – Plan Your Academic Journey",
@@ -49,11 +49,13 @@ export const metadata: Metadata = {
     title: "CGPA Calculator",
     description:
       "Calculate CGPA, set target CGPA, and plan your academic journey.",
-    images: ["/og.png"],
+    images: ["https://cgpa.quadrawebs.com/og.png"],
   },
 
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 
   robots: {
