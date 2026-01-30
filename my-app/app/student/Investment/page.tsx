@@ -37,8 +37,8 @@ type StockDataMap = Record<string, StockData>;
 type AssetCategory = "all" | "stocks" | "crypto" | "forex";
 
 const TIME_INTERVALS: { value: TimeInterval; label: string }[] = [
-  { value: "10m", label: "10M" },
-  { value: "30m", label: "30M" },
+  { value: "10m", label: "10min" },
+  { value: "30m", label: "30min" },
   { value: "1h", label: "1H" },
   { value: "12h", label: "12H" },
   { value: "1d", label: "1D" },
@@ -433,6 +433,14 @@ export default function InvestmentPage() {
   const chartStats = getChartStats();
   const selectedAsset = watchlist.find((a) => a.symbol === selectedSymbol);
 
+  // Merge historyData with compareData for chart
+  const mergedChartData = historyData.map((item, index) => {
+    const compareItem = compareData[index];
+    return {
+      ...item,
+      compareClose: compareItem?.close,
+    };
+  });
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
@@ -810,7 +818,7 @@ export default function InvestmentPage() {
               {chartType === "area" && (
                 <ResponsiveContainer width="100%" height={400}>
                   <AreaChart
-                    data={historyData}
+                    data={mergedChartData}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                   >
                     <defs>
@@ -843,10 +851,11 @@ export default function InvestmentPage() {
                         borderRadius: "0.75rem",
                         padding: "12px",
                       }}
-                      formatter={(value: number | undefined, name?: string) => [
-                        `$${(value ?? 0).toFixed(2)}`,
-                        name === "close" ? selectedSymbol : (compareSymbol || "Price"),
-                      ]}
+                      formatter={(value: number | undefined, name?: string) => {
+                        if (value === undefined) return ["N/A", name || "Price"];
+                        const displayName = name === "compareClose" ? compareSymbol : (name || selectedSymbol);
+                        return [`$${value.toFixed(2)}`, displayName];
+                      }}
                       labelFormatter={(label) => {
                         const date = new Date(label);
                         if (isIntradayInterval(selectedInterval)) {
@@ -875,6 +884,18 @@ export default function InvestmentPage() {
                       dot={false}
                       activeDot={{ r: 6, fill: "#14b8a6" }}
                     />
+                    {compareSymbol && compareData.length > 0 && (
+                      <Area
+                        type="monotone"
+                        dataKey="compareClose"
+                        name={compareSymbol}
+                        stroke="#8b5cf6"
+                        strokeWidth={2}
+                        fill="url(#colorCompare)"
+                        dot={false}
+                        activeDot={{ r: 6, fill: "#8b5cf6" }}
+                      />
+                    )}
                     {showBrush && historyData.length > 5 && (
                       <Brush
                         dataKey="date"
