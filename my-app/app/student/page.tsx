@@ -184,6 +184,23 @@ export default function StudentDashboard() {
             </button>
           </div>
 
+          {/* Investment */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-cyan-300 hover:shadow-md transition-all">
+            <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mb-4 text-2xl">
+              👁️
+            </div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Review</h2>
+            <p className="text-sm text-gray-600 mb-6">
+              Track real-time and historical stock market data.
+            </p>
+            <button 
+              onClick={() => router.push("/student/review")}
+              className="px-5 py-2 bg-cyan-500 text-white rounded font-medium hover:bg-cyan-600 transition-colors"
+            >
+              Review
+            </button>
+          </div>
+
 
         </div>
 

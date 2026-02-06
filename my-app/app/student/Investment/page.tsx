@@ -307,10 +307,18 @@ export default function InvestmentPage() {
         const res = await fetch(`/api/finnhub?symbol=${symbol}&interval=${interval}`);
 
         if (!res.ok) {
-          throw new Error(`Failed to fetch history`);
+          const errorText = await res.text();
+          console.error(`API response error:`, errorText);
+          throw new Error(`Failed to fetch history: ${res.status}`);
         }
 
         const json = await res.json();
+
+        if (json.error) {
+          console.warn(`API warning for ${symbol}:`, json.error);
+          setHistoryData([]);
+          return;
+        }
 
         if (json.data && json.data.length > 0) {
           const sorted = [...json.data].sort(
@@ -322,8 +330,8 @@ export default function InvestmentPage() {
           setHistoryData([]);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch history");
         console.error("Error fetching history:", err);
+        // Don't set error for individual fetch failures, just clear data
         setHistoryData([]);
       } finally {
         setLoadingHistory(false);
