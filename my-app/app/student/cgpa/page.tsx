@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AIChatbot from '@/app/components/AIChatbot';
 import {
   LineChart,
   Line,
@@ -1363,7 +1362,6 @@ export default function CgpaPage() {
           </div>
         </div>
       )}
-      <AIChatbot />
     </div>
   );
 }
